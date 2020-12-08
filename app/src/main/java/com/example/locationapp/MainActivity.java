@@ -31,22 +31,8 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gpsTracker = new GpsTracker(MainActivity.this);
-                if(gpsTracker.canGetLocation())
-                {double latitude=gpsTracker.getLatitude();
-                    double longitude=gpsTracker.getLongitude();
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                           /////////////////////////////// ///////loader dalna infinite time chalega if back karne par vo chale jatta he varrna 3 sec
-                            Intent intent = new Intent(getApplicationContext(),MainActivity2.class);
-                            intent.putExtra("lat",latitude);
-                            intent.putExtra("longi",longitude);
-                            startActivity(intent);
-                        }}, 2000);
-                }
-                else
-                    gpsTracker.showSettingsAlert();
+                Intent intent = new Intent(getApplicationContext(),MainActivity2.class);
+                startActivity(intent);
             }
         });
 
