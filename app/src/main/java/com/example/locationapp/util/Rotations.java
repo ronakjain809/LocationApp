@@ -16,6 +16,14 @@ public class Rotations {
         animation.setRepeatCount(0);
         animation.setFillAfter(true);
         view.startAnimation(animation);
+    }
 
+    public static void applySmoothViewWindowRotation(View view, float from, float to) {
+        Animation animation = new RotateAnimation(from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(750);
+        animation.setRepeatCount(0);
+        animation.setFillAfter(true);
+        animation.setDetachWallpaper(true);
+        view.startAnimation(animation);
     }
 }

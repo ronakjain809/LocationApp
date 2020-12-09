@@ -13,6 +13,7 @@ public final class ViewRotationHandler implements Observer {
     private static final float SMOOTHING_FACTOR = 0.2f;
     private final ImageView compassView;
     private final ImageView needleView;
+    private final ImageView targetView;
     private final Compass compass;
     private final NavNeedle needle;
 
@@ -20,11 +21,12 @@ public final class ViewRotationHandler implements Observer {
     private final float[] prevLowPassOutputNeedle = new float[2];
 
 
-    public ViewRotationHandler(ImageView compassView, ImageView needleView, Compass compass, NavNeedle needle) {
+    public ViewRotationHandler(ImageView compassView, ImageView needleView, ImageView targetView, Compass compass, NavNeedle needle) {
         this.compassView = compassView;
         this.needleView = needleView;
         this.compass = compass;
         this.needle = needle;
+        this.targetView = targetView;
     }
 
 
@@ -40,6 +42,7 @@ public final class ViewRotationHandler implements Observer {
         float newNeedleRotation = Rotations.normalizeRadToDegree((getSmoothedCompassAngle(prevLowPassOutputNeedle, needle.getBearing()-compass.getAzimuth())));
 
         Rotations.applySmoothRotationAnimation(needleView, prevNeedleRotation, newNeedleRotation);
+        Rotations.applySmoothRotationAnimation(targetView, prevNeedleRotation, newNeedleRotation);
 
         /*compassView.setRotation(Rotations.normalizeRadToDegree(getSmoothedCompassAngle(prevLowPassOutputCompass, -compass.getAzimuth())));
         needleView.setRotation(Rotations.normalizeRadToDegree((getSmoothedCompassAngle(prevLowPassOutputNeedle, -needle.getBearing()-compass.getAzimuth()))));*/

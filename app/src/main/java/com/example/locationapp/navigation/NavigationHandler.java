@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Looper;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -63,7 +64,7 @@ public final class NavigationHandler {
     private final SettingsClient settingsClient;
     private final LocationSettingsRequest locationSettingsRequest;
 
-    public NavigationHandler(Activity activity, FusedLocationProviderClient locationProviderClient, SensorManager sensorManager, ImageView needleView, ImageView compassView) {
+    public NavigationHandler(Activity activity, FusedLocationProviderClient locationProviderClient, SensorManager sensorManager, ImageView needleView, ImageView compassView, ImageView targetView) {
         this.locationProviderClient = locationProviderClient;
         this.needleView = needleView;
         this.compassView = compassView;
@@ -75,7 +76,7 @@ public final class NavigationHandler {
         this.rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         rotationListener = new CompassRotationListener(compass);
         sourceLocationCallback = new NeedleSourceLocationCallback(needle, this::checkSettings);
-        compass.addObserver(new ViewRotationHandler(compassView, needleView, compass, needle));
+        compass.addObserver(new ViewRotationHandler(compassView, needleView, targetView, compass, needle));
 
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

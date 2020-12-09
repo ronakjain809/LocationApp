@@ -8,8 +8,15 @@ import android.hardware.SensorManager;
 import android.location.Address;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.Gravity;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.locationapp.constant.RequestCode;
 import com.example.locationapp.navigation.NavigationHandler;
@@ -36,11 +44,16 @@ public class MainActivity3 extends AppCompatActivity {
 
     private ImageView needleImage;
     private ImageView compassImage;
+    private ImageView targetImage;
+    private ImageView angleCircle;
+
     private Button locationSearchBtn;
     private TextView curPickedPlace;
 
     private NavigationHandler navigationHandler;
     private FusedLocationProviderClient locationProviderClient;
+
+
 
     @SuppressLint("MissingPermission")
     @Override
@@ -51,14 +64,22 @@ public class MainActivity3 extends AppCompatActivity {
         compassImage = findViewById(R.id.compass);
         locationSearchBtn = findViewById(R.id.locationSearch);
         curPickedPlace = findViewById(R.id.curPickedPlace);
+        targetImage = findViewById(R.id.target);
+        angleCircle = findViewById(R.id.angleCircle);
 
 
+        // DEBUG
+        /*targetImage.setPivotX(539);
+        targetImage.setPivotY(1044);*/
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> targetImage.setTranslationY((angleCircle.getWidth()/2f + targetImage.getHeight() /2f) * -1), 100);
 
+        // DEBUG
         locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        navigationHandler = new NavigationHandler(this, locationProviderClient, sensorManager, needleImage, compassImage);
+        navigationHandler = new NavigationHandler(this, locationProviderClient, sensorManager, needleImage, compassImage, targetImage);
 
         if (!Permissions.getDeniedPermissions(getApplicationContext(), PERMISSIONS).isEmpty()) {
             Permissions.requestPermissions(this, RequestCode.PERMISSIONS, PERMISSIONS);
@@ -78,6 +99,22 @@ public class MainActivity3 extends AppCompatActivity {
                 return null;
             });
         });
+    }
+
+    private void debug() {
+        int[] circleLoc = new int[2];
+        angleCircle.getLocationOnScreen(circleLoc);
+        int posX = circleLoc[0];
+        int posY = targetImage.getLeft();
+        targetImage.setTranslationY((angleCircle.getWidth()/2f + targetImage.getHeight() /2f) * -1);
+
+//        targetImage.setPivotX(0);
+//        targetImage.setPivotY(0);
+        Animation animation = new RotateAnimation(0, 10000, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(60000);
+        animation.setRepeatCount(Animation.INFINITE);
+        animation.setFillAfter(true);
+        targetImage.startAnimation(animation);
     }
 
     @Override

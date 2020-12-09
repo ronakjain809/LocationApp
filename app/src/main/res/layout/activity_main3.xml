@@ -33,16 +33,16 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/needle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/compass"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/needle" />
+            android:id="@+id/needle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/compass"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/needle" />
 
     <Button
         android:id="@+id/locationSearch"
@@ -76,5 +76,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/angleCircle"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+            android:layout_width="88dp"
+            android:layout_height="118dp"
+            app:srcCompat="@drawable/eiffel_tower"
+            android:id="@+id/target"
+            app:layout_constraintEnd_toEndOf="@+id/angleCircle"
+            app:layout_constraintStart_toStartOf="@+id/angleCircle"
+            app:layout_constraintBottom_toBottomOf="@+id/angleCircle"
+            app:layout_constraintTop_toTopOf="@+id/angleCircle"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintVertical_bias="0.499" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

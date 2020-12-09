@@ -11,7 +11,7 @@ public final class NavNeedle extends Observable {
     private final double[] source = new double[2];
 
     {
-        setDestination(27.175354762456045, 78.04206709609832);
+        setDestination(48.858595716441805, 2.2944410188355775);
     }
 
     public float getBearing() {
