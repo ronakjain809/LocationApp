@@ -71,9 +71,9 @@ public class MainActivity2 extends AppCompatActivity {
         TextView sunsetText = findViewById(R.id.sunset);
 
         data.addObserver((observable, obj) -> {
-            sunriseText.setText(data.getSunrise().format(formatter));
-            sunAtTopText.setText(data.getNoon().format(formatter));
-            sunsetText.setText(data.getSunset().format(formatter));
+            sunriseText.setText(String.format("SUNRISES at %s", data.getSunrise().format(formatter)));
+            sunAtTopText.setText(String.format("SUNS PEEK at %s", data.getNoon().format(formatter)));
+            sunsetText.setText(String.format("SUNSETS at %s", data.getSunset().format(formatter)));
         });
         checkSettings();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
